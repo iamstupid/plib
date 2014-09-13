@@ -44,7 +44,7 @@
 		this.readchS=function(){
 			return str.charAt(ptr++);
 		}
-		this.readchS=function(){
+		this.readchCS=function(){
 			return str.charCodeAt(ptr++);
 		}
 		this.type="pstring";
