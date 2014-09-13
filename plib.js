@@ -84,10 +84,60 @@
 			this.partialResult.push(c);
 			return this;
 		}
+		this.pushStateB=function(b){
+			var c;
+			a.push(c=new pnode(b));
+			return c;
+		}
 		this.getPushStateResult=function(){
 			var c;
 			return ("partialResult" in this?(c=this.partialResult,delete this.partialResult,c):undefined);
 		}
 	}
 	_.pnode=pnode;
+
+	//a ultra high level call stack implementation but with few methods, and very very low performance
+	function pstack(lls){
+		var stack=[];
+		this.run=function(){
+			var l=stack.length-1;
+			var a=stack[l][0](lls,stack[l][1],stack[l][2]);
+			switch(a[0]){
+				case "run":
+				stack.push([a[1],a[2],a[3]]);
+				break;
+				case "ret":
+				stack.pop();
+				break;
+				case 
+				case "next":
+				default:
+				stack.pop();
+				stack.push([a[1],a[2],a[3]]);
+				break;
+			}
+			if(lls.terminated()){
+				return false;
+			}
+			return true;
+		}
+		this.push=function(a,b,c){
+			stack.push([a,b,c]);
+		}
+	}
+	_.pstack=pstack;
+
+	function pparser(states,main){
+		this.states=states;
+		var ma=states[main];
+		this.parse=function(str){
+			var ps=new pstring(str);
+			var s=new pstack(ps);
+			var res=new pnode({});
+			pstack.push(main,[states,res],[]);
+			while(pstack.run());
+			return res;
+		}
+	}
+	_.pparser=pparser;
 })(window.plib || (window.plib = {}));
