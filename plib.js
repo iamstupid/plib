@@ -109,7 +109,6 @@
 				case "ret":
 				stack.pop();
 				break;
-				case 
 				case "next":
 				default:
 				stack.pop();
