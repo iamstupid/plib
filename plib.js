@@ -18,16 +18,16 @@
 		}
 		this.length=len;
 		this.seekChar=function(ch){
-			while(ptr!==len && str.charAt(ptr)===ch) ++ptr;//seek char and read the next one
+			while(ptr<len && str.charAt(ptr)===ch) ++ptr;//seek char and read the next one
 		}
 		this.ReadStringTo=function(ch,p){
 			var res="";
 			if(!p) this.seekChar(ch);
-			while(res+=(str.charAt(ptr++)),str.charAt(ptr)!==ch&&ptr!==len);
+			while(res+=(str.charAt(ptr++)),str.charAt(ptr)!==ch&&ptr<len);
 			return res;
 		}
 		this.terminated=function(){
-			return len==ptr;
+			return len<=ptr;
 		}
 		this.seek=function(n){
 			ptr+=n;
